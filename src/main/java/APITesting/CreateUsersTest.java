@@ -4,6 +4,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
+import users.UsersClinet;
 
 import static io.restassured.RestAssured.given;
 
@@ -21,7 +22,7 @@ public class CreateUsersTest {
                 "}";
 
         //Act
-        getUser(body)
+        new UsersClinet().getUser(body)
                 //Assert
                 .then()
                 .log().body()
@@ -33,16 +34,6 @@ public class CreateUsersTest {
 
     }
 
-    private Response getUser(String body) {
-
-        return given()
-                .accept(ContentType.JSON)
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer 4cfc4a225c7c3756320db1a12fdb54df2f688250bc47287c2271dd4ddf701498")
-                .body(body)
-                .when()
-                .post(url);
-    }
 
     @Test
     public void toGETUsers(){
@@ -73,7 +64,7 @@ public class CreateUsersTest {
                 "  \"status\": \"active\"\n" +
                 "}";
        //Act
-        getUser(body)
+        new UsersClinet().getUser(body)
                 .then()
                 .log().body()
                 .statusCode(201)
