@@ -25,7 +25,7 @@ public class NegativeUsersTest {
     @Test
     public void invalidEmailId(){
 
-       obj = CreateUserRequestbody.builder().name("Sample name").email("se1237896tloo.com").status("active").gender("male").build();
+       obj = CreateUserRequestbody.builder().name("Sample name").email("se1237896tloo@gma.com").status("active").gender("male").build();
 
         CreateUserErrorResponse errorResponse = client.createUserExpectingError(obj);
         Assert.assertEquals(errorResponse.getStatusCode(), 422);
