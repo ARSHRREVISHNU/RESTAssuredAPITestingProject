@@ -29,27 +29,10 @@ public void beforeClass(){
         Assert.assertEquals(createUserResponsebody.getStatusCode(), 201);
         Assert.assertNotNull(createUserResponsebody.getData().getId());
         Assert.assertEquals(createUserResponsebody.getData().getEmail(), obj.getEmail());
-
-
-
     }
 
 
-    @Test
-    public void toGETUsers(){
 
-                client.getUsers()
-                        .then()
-                .log().body()
-                .statusCode(200)
-                .body("data",Matchers.hasItem(Matchers.hasEntry("email", "bobbie_metz@collins.info")));
-
-
-
-
-
-
-    }
 
     @Test
     public void toCreateFemaleUser(){

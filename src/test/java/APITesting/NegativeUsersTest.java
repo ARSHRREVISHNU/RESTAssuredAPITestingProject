@@ -1,16 +1,11 @@
 package APITesting;
 
-import io.restassured.response.Response;
-import org.hamcrest.Matchers;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import users.Create.Request.CreateUserRequestbody;
 import users.Create.Response.CreateUserErrorResponse;
-import users.Create.Response.CreateUserResponsebody;
 import users.UsersClinet;
-
-import java.util.UUID;
 
 public class NegativeUsersTest {
 

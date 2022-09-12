@@ -3,8 +3,6 @@ package APITesting;
 import org.testng.annotations.*;
 import users.UsersClinet;
 
-import static io.restassured.RestAssured.*;
-
 public class RESTAssurredTests {
 
 
