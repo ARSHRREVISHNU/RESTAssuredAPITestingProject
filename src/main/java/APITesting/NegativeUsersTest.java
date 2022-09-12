@@ -1,47 +1,43 @@
 package APITesting;
 
+import io.restassured.response.Response;
 import org.hamcrest.Matchers;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import users.Create.JSONObject;
+import users.Create.Request.CreateUserRequestbody;
+import users.Create.Response.CreateUserErrorResponse;
+import users.Create.Response.CreateUserResponsebody;
 import users.UsersClinet;
 
-import java.util.Random;
 import java.util.UUID;
 
 public class NegativeUsersTest {
 
     private UsersClinet client;
-    JSONObject obj;
+    CreateUserRequestbody obj;
     @BeforeClass
     public void beforeClass(){
         client = new UsersClinet();
 
 
     }
-
-
     @Test
     public void invalidEmailId(){
-        String name = "Sample name";
-        String gender = "male";
-        String status = "active";
-       String email = String.format("%s@gmail.com", UUID.randomUUID());
-        String body = String.format("{\n" +
-                "\n" +
-                "    \"name\": \"Sample name\",\n" +
-                "    \"email\": \"%S\",\n" +
-                "    \"gender\": \"male\",\n" +
-                "    \"status\": \"active\"\n" +
-                "}",email);
-        obj = new JSONObject(name, gender,email, status);
 
-        client.getUser(obj)
-                .then()
-                .log().body()
-                .statusCode(422)
-                .body("data", Matchers.hasItem(Matchers.hasEntry("field", "email")))
-                .body("data", Matchers.hasItem(Matchers.hasEntry("message","is invalid")));
+       obj = CreateUserRequestbody.builder().name("Sample name").email("se1237896tloo.com").status("active").gender("male").build();
 
+        CreateUserErrorResponse errorResponse = client.createUserExpectingError(obj);
+        Assert.assertEquals(errorResponse.getStatusCode(), 422);
+        errorResponse.assertHasError("email", "is invalid");
+
+
+    }
+    @Test
+    public void invalidStatusAndGender(){
+        obj = CreateUserRequestbody.builder().name("Sample name").email("shrrevdtrdtrfyr@gmail.com").status("").gender("").build();
+        CreateUserErrorResponse errorResponse = client.createUserExpectingError(obj);
+        errorResponse.assertHasError("gender", "can't be blank, can be male of female");
+        errorResponse.assertHasError("status","can't be blank");
     }
 }

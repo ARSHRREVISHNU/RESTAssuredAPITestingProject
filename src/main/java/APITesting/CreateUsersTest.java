@@ -1,16 +1,14 @@
 package APITesting;
 
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import org.hamcrest.Matchers;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import users.Create.JSONObject;
+import users.Create.Request.CreateUserRequestbody;
+import users.Create.Response.CreateUserResponsebody;
 import users.UsersClinet;
 
 import java.util.UUID;
-
-import static io.restassured.RestAssured.given;
 
 public class CreateUsersTest {
 
@@ -22,29 +20,15 @@ public void beforeClass(){
     @Test
     public void toCreateMaleUser(){
 //Arrange
-
-        JSONObject obj;
-        String name = "Tenali Ramakrishna";
-        String gender = "male";
-        String status = "active";
-        String email = String.format("%@gmail.com", UUID.randomUUID());
-
-        String body = String.format("{\n" +
-                "  \"name\": \""+name+"\",\n" +
-                "  \"gender\": \""+gender+"\",\n" +
-                "  \"email\": \"%s\",\n" +
-                "  \"status\": \""+status+"\"\n" +
-                "}", email);
-
-        obj = new JSONObject(name,gender,status,email);
-    //Act
-    client.getUser(obj)
-                //Assert
-                .then()
-                .log().body()
-                .statusCode(201)
-                .body("data.id", Matchers.notNullValue())
-                .body("data.email", Matchers.equalTo(email));
+        CreateUserRequestbody obj;
+        String email = String.format("%s@gmail.com", UUID.randomUUID());
+        //String email = "shrre@vishnswffeu.com";
+        //obj = new CreateUserRequestbody("Sample name", "male", email, "active");
+        obj = CreateUserRequestbody.builder().name("Tenali Ramakrishna").email(email).gender("male").status("active").build();    //Act
+        CreateUserResponsebody createUserResponsebody = client.getUser(obj);
+        Assert.assertEquals(createUserResponsebody.getStatusCode(), 201);
+        Assert.assertNotNull(createUserResponsebody.getData().getId());
+        Assert.assertEquals(createUserResponsebody.getData().getEmail(), obj.getEmail());
 
 
 
@@ -70,25 +54,18 @@ public void beforeClass(){
     @Test
     public void toCreateFemaleUser(){
 //Arrange
-        JSONObject obj;
-        String name = "Tenali Ramakrishna";
-        String gender = "male";
-        String status = "active";
+        CreateUserRequestbody obj;
         String email = String.format("%s@gmail.com", UUID.randomUUID());
-        String body = String.format("{\n" +
-                "  \"name\": \""+name+"\",\n" +
-                "  \"gender\": \""+gender+"\",\n" +
-                "  \"email\": \"%s\",\n" +
-                "  \"status\": \""+status+"\"\n" +
-                "}", email);
-        obj = new JSONObject(name,gender,email, status);
+        //String email = "shrre@vishnswffeu.com";
+        //obj = new CreateUserRequestbody("Sample name", "male", email, "active");
+        obj = CreateUserRequestbody.builder().name("Tenali Ramakrishna").email(email).gender("male").status("active").build();
+
        //Act
-     client.getUser(obj)
-                .then()
-                .log().body()
-                .statusCode(201)
-                .body("data.id",Matchers.notNullValue())
-                .body("data.email", Matchers.equalTo(email));
+        CreateUserResponsebody createUserResponsebody = client.getUser(obj);
+
+        Assert.assertEquals(createUserResponsebody.getStatusCode(), 201);
+        Assert.assertNotNull(createUserResponsebody.getData().getId());
+        Assert.assertEquals(createUserResponsebody.getData().getEmail(), obj.getEmail());
     }
 
 }
