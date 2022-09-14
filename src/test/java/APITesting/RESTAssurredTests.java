@@ -1,7 +1,11 @@
 package APITesting;
 
-import org.testng.annotations.*;
+import com.beust.ah.A;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import users.UsersClinet;
+import users.getAll.GetAllUsersResponse;
 
 public class RESTAssurredTests {
 
@@ -15,10 +19,10 @@ public class RESTAssurredTests {
 
     @Test
     public void togGetAllUsers(){
-               user.getUsers()
-             .then()
-                        .log().body()
-                        .statusCode(200);
+        GetAllUsersResponse getAllUsersResponse = user.getUsers();
+        Assert.assertEquals(getAllUsersResponse.getStatusCode(), 200);
+        Assert.assertEquals(getAllUsersResponse.getDataList().size(), 10);
+        Assert.assertTrue(getAllUsersResponse.checkMaleUser());
 
     }
 
