@@ -4,16 +4,16 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import users.Create.Request.CreateUserRequestbody;
 import users.Create.Response.CreateUserResponsebody;
-import users.UsersClinet;
+import users.UsersService;
 
 import java.util.UUID;
 
 public class CreateUsersTest {
 
-   private UsersClinet client;
+   private UsersService usersService;
 @BeforeClass
 public void beforeClass(){
-    client = new UsersClinet();
+    usersService = new UsersService();
  }
 
     @Test
@@ -21,9 +21,9 @@ public void beforeClass(){
         //Arrange
         CreateUserRequestbody obj;
         String email = String.format("%s@gmail.com", UUID.randomUUID());
-        obj = CreateUserRequestbody.builder().build();
+        obj = new CreateUserRequestbody.Builder().build();
         //Act
-        CreateUserResponsebody createUserResponsebody = client.getUser(obj);
+        CreateUserResponsebody createUserResponsebody = usersService.getUser(obj);
        //Assert
         createUserResponsebody.assertUser(obj);
     }
@@ -34,9 +34,9 @@ public void beforeClass(){
         //Arrange
         CreateUserRequestbody obj;
         String email = String.format("%s@gmail.com", UUID.randomUUID());
-        obj = CreateUserRequestbody.builder().gender("female").build();
+        obj = new CreateUserRequestbody.Builder().gender("female").build();
        //Act
-        CreateUserResponsebody createUserResponsebody = client.getUser(obj);
+        CreateUserResponsebody createUserResponsebody = usersService.getUser(obj);
         //Assert
         createUserResponsebody.assertUser(obj);
 

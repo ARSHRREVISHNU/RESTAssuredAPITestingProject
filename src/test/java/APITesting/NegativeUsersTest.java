@@ -6,23 +6,24 @@ import org.testng.annotations.Test;
 import users.Create.Request.CreateUserRequestbody;
 import users.Create.Response.CreateUserErrorResponse;
 import users.UsersClinet;
+import users.UsersService;
 
 public class NegativeUsersTest {
 
-    private UsersClinet client;
+    private UsersService usersService;
     CreateUserRequestbody obj;
     @BeforeClass
     public void beforeClass(){
-        client = new UsersClinet();
+        usersService = new UsersService();
 
 
     }
     @Test
     public void invalidEmailId(){
 
-       obj = CreateUserRequestbody.builder().email("se1237896tloo.com").build();
+       obj = new CreateUserRequestbody.Builder().email("se1237896tloo.com").build();
 
-        CreateUserErrorResponse errorResponse = client.createUserExpectingError(obj);
+        CreateUserErrorResponse errorResponse = usersService.createUserExpectingError(obj);
         Assert.assertEquals(errorResponse.getStatusCode(), 422);
         errorResponse.assertHasError("email", "is invalid");
 
@@ -30,8 +31,8 @@ public class NegativeUsersTest {
     }
     @Test
     public void invalidStatusAndGender(){
-        obj = CreateUserRequestbody.builder().status("").gender("").build();
-        CreateUserErrorResponse errorResponse = client.createUserExpectingError(obj);
+        obj = new CreateUserRequestbody.Builder().status("").gender("").build();
+        CreateUserErrorResponse errorResponse = usersService.createUserExpectingError(obj);
         errorResponse.assertHasError("gender", "can't be blank, can be male of female");
         errorResponse.assertHasError("status","can't be blank");
     }

@@ -1,17 +1,24 @@
 package users.Create.Request;
 
-import lombok.Builder;
+
 import lombok.Getter;
 
 import java.util.UUID;
 
 @Getter
-@Builder
 public class CreateUserRequestbody {
     private String name;
     private String gender;
     private String email;
     private String status;
+
+    public CreateUserRequestbody(Builder builder) {
+        this.name = builder.name;
+        this.email = builder.email;
+        this.gender = builder.gender;
+        this.status = builder.status;
+
+    }
 
 
     public static class Builder {
@@ -44,5 +51,10 @@ public class CreateUserRequestbody {
 
         }
 
+        public CreateUserRequestbody build() {
+
+        CreateUserRequestbody createUserRequestbody = new CreateUserRequestbody(this);
+        return createUserRequestbody;
+        }
     }
 }
