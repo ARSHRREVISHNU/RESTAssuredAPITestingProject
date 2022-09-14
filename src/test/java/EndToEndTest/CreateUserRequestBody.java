@@ -1,15 +1,13 @@
-package users.Create.Request;
+package EndToEndTest;
 
 import lombok.Builder;
 import lombok.Getter;
 
-@Getter
 @Builder
-public class CreateUserRequestbody {
+@Getter
+public class CreateUserRequestBody {
     private String name;
-    private String gender;
     private String email;
+    private String gender;
     private String status;
-
-
 }
