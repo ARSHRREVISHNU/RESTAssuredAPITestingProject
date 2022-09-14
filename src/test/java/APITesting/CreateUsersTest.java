@@ -21,7 +21,7 @@ public void beforeClass(){
         //Arrange
         CreateUserRequestbody obj;
         String email = String.format("%s@gmail.com", UUID.randomUUID());
-        obj = CreateUserRequestbody.builder().name("Tenali Ramakrishna").email(email).gender("male").status("active").build();
+        obj = CreateUserRequestbody.builder().build();
         //Act
         CreateUserResponsebody createUserResponsebody = client.getUser(obj);
        //Assert
@@ -34,7 +34,7 @@ public void beforeClass(){
         //Arrange
         CreateUserRequestbody obj;
         String email = String.format("%s@gmail.com", UUID.randomUUID());
-        obj = CreateUserRequestbody.builder().name("Tenali Ramakrishna").email(email).gender("male").status("active").build();
+        obj = CreateUserRequestbody.builder().gender("female").build();
        //Act
         CreateUserResponsebody createUserResponsebody = client.getUser(obj);
         //Assert

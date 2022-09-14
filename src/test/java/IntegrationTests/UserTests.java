@@ -20,9 +20,7 @@ usersClinet = new UsersClinet();
     public void shouldCreateAndReturnUser(){
        //Arrange
         String email = String.format("%s@gmail.com", UUID.randomUUID());
-        CreateUserRequestbody createUserRequestbody = CreateUserRequestbody.builder()
-                .name("My Name").gender("male")
-                .status("active").email(email).build();
+        CreateUserRequestbody createUserRequestbody = CreateUserRequestbody.builder().build();
 
         //Arrange
         int id = usersClinet.getUser(createUserRequestbody).getData().getId();

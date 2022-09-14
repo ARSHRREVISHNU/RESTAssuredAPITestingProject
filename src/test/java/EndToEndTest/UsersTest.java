@@ -22,7 +22,7 @@ private UsersClient client;
         //Arrange
         CreateUserRequestBody obj;
         String email = String.format("%s@gmail.com", UUID.randomUUID());
-        obj = CreateUserRequestBody.builder().name("Sample Name").email(email).status("active").gender("male").build();
+        obj = CreateUserRequestBody.builder().build();
         //Act
         int id = client.getUser(obj).getData().getId();
         //Assert

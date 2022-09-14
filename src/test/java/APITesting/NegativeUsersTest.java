@@ -20,7 +20,7 @@ public class NegativeUsersTest {
     @Test
     public void invalidEmailId(){
 
-       obj = CreateUserRequestbody.builder().name("Sample name").email("se1237896tloo.com").status("active").gender("male").build();
+       obj = CreateUserRequestbody.builder().email("se1237896tloo.com").build();
 
         CreateUserErrorResponse errorResponse = client.createUserExpectingError(obj);
         Assert.assertEquals(errorResponse.getStatusCode(), 422);
@@ -30,7 +30,7 @@ public class NegativeUsersTest {
     }
     @Test
     public void invalidStatusAndGender(){
-        obj = CreateUserRequestbody.builder().name("Sample name").email("shrrevdtrdtrfyr@gmail.com").status("").gender("").build();
+        obj = CreateUserRequestbody.builder().status("").gender("").build();
         CreateUserErrorResponse errorResponse = client.createUserExpectingError(obj);
         errorResponse.assertHasError("gender", "can't be blank, can be male of female");
         errorResponse.assertHasError("status","can't be blank");
