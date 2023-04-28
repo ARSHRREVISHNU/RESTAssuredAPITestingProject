@@ -8,7 +8,8 @@ import users.Create.Request.CreateUserRequestbody;
 
 import static io.restassured.RestAssured.given;
 
-public class UsersClinet {
+public class
+UsersClinet {
     String url = "https://gorest.co.in/public/v1/users";
 
     public Response create(CreateUserRequestbody body) {
@@ -37,10 +38,12 @@ public class UsersClinet {
     }
 
     public  Response get(int id) {
+        String url = "https://gorest.co.in/public/v1/users/";
         Response response = given()
                 .pathParam("id", id)
                 .when()
-                .get("https://gorest.co.in/public/v1/{id}");
+                .get("https://gorest.co.in/public/v1/users/{id}");
+        System.out.println(url+id);
         response
                 .then()
                 .log().body();

@@ -26,7 +26,7 @@ public class UserTests {
 
         //Arrange
         int id = usersService.getUser(createUserRequestbody).getData().getId();
-
+        System.out.println("ID: "+id);
 //Assert
         usersService.getuser(id).assertUser(createUserRequestbody);
     }

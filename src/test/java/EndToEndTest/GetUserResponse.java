@@ -13,11 +13,11 @@ private int statusCode;
 private Data data;
 private String meta;
 
-public void assertUserId(CreateUserRequestBody responseBody){
-        Assert.assertEquals(data.email, responseBody.getEmail());
-        Assert.assertEquals(data.name, responseBody.getName());
-        Assert.assertEquals(data.gender, responseBody.getGender());
-        Assert.assertEquals(data.status, responseBody.getStatus());
+public void assertUserId(CreateUserRequestBody requestBody){
+        Assert.assertEquals(data.email, requestBody.getEmail());
+        Assert.assertEquals(data.name, requestBody.getName());
+        Assert.assertEquals(data.gender, requestBody.getGender());
+        Assert.assertEquals(data.status, requestBody.getStatus());
     }
 
 
